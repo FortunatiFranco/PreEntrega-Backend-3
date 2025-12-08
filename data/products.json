@@ -1,1 +1,1 @@
-[{"id":"ca0ab7a0-bf4a-4ad5-916b-9e2b5f1f42c5","title":"prod1","price":1500,"description":"aaa","stock":1}]
+[{"id":"6084ea2d-02f9-4244-ab0c-66dc06a684de","name":"Camiseta Argentina Titular","price":24000,"stock":15,"description":"Colleción Argentina x Adidas","status":"true","category":"new","code":1222,"image":"http://image.com"},{"id":"48273367-69bc-4123-a54b-aaa5a63b28f9","name":"Camiseta Argentina Suplente","price":16000,"stock":25,"description":"Colleción Argentina x Adidas","status":"true","category":"new","code":12223,"image":"http://image.com"}]
