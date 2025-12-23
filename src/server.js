@@ -11,6 +11,8 @@ const server = express()
 const port = 8080
 
 server.use(express.json())
+server.use(express.urlencoded({ extended: true}))
+server.use(express.static(`src/public`))
 server.engine('handlebars', handlebars.engine());
 server.set('view engine', 'handlebars');
 server.set('views', `${process.cwd()}/views`)
@@ -26,7 +28,7 @@ const httpServer = server.listen(port, () => {
 
 const socketServer = new Server(httpServer);
 
-const productsAll = productManager.getAll();
+const productsAll = await productManager.getAll();
 
 socketServer.on('connection', (socket)=>{
     console.log(`Nuevo cliente conectado: ${socket.id}`);
