@@ -74,4 +74,4 @@ class CartManager {
     }
 }
 
-export default CartManager;
+export const cartManager = new CartManager(CartModel);
