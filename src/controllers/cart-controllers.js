@@ -11,7 +11,7 @@ getAll = async(req, res)=> {
         const response = await this.manager.getAll();
         res.json(response);
     } catch (error) {
-        res.status(400).json(error);
+        res.status(400).json(error.message);
     }
 }
 
@@ -19,39 +19,40 @@ getById = async(req, res) => {
     try {
         const { cid } = req.params;
         const response = await this.manager.getById(cid);
-        if (!response) throw new Error("Carrito no encontrado");
+        if (!response) {res.status(404).json({ error: "Carrito no encontrado" })};
         return res.json(response);
-    } catch (error) {
-        res.status(400).json(error);
-    }
-}
-
-create = async(req, res) => {
-    try {
-        const response = await this.manager.createCart(req.body);
-        res.json(response);
     } catch (error) {
         res.status(400).json(error.message);
     }
 }
 
-addProdToCart = async(req, res) =>{
+create = async(req, res) => {
     try {
-        const {cid} = req.params;
-        const {pid} = req.params;
+        const response = await this.manager.createCart();
+        res.status(201).json(response);
     } catch (error) {
-        
+        res.status(500).json(error.message);
+    }
+}
+
+addProduct = async(req, res) =>{
+    try {
+        const { cid, pid} = req.params;
+        const response = await this.manager.addProduct(cid, pid)
+        res.json(response)
+    } catch (error) {
+        res.status(400).json(error.message);
     }
 }
 
 update = async(req, res) => {
     try {
         const { cid } = req.params;
-        const response = await this.manager.clearCart(cid, req.body);
-        if (!response) throw new Error("Carrito no encontrado");
+        const response = await this.manager.clearCart(cid);
+        if (!response) { return res.status(404).json({ error: "Carrito no encontrado" })};
         return res.json(response);
     } catch (error) {
-        res.status(400).json(error);
+        res.status(400).json(error.message);
     }
 }
 
@@ -59,10 +60,10 @@ delete = async(req, res) => {
     try {
         const { cid } = req.params;
         const response = await this.manager.deleteCart(cid);
-        if (!response) throw new Error("Carrito no encontrado");
-        return res.json(response);
+        if (!response) { return res.status(404).json({ error: "Carrito no encontrado" })};
+        return res.json(`Carrito ${cid} eliminado`);
     } catch (error) {
-        res.status(400).json(error);
+        res.status(400).json(error.message);
     }
 }
 }
